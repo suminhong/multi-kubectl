@@ -33,6 +33,8 @@ Run on contexts containing "prod" OR "stage":
 mk get pods --context prod,stage
 ```
 
+![example](images/example.png)
+
 ## Installation
 
 ### Homebrew

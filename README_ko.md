@@ -33,6 +33,8 @@ mk get pods --context prod
 mk get pods --context prod,stage
 ```
 
+![example](images/example.png)
+
 ## 설치 (Installation)
 
 ### Homebrew

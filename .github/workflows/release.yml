@@ -9,6 +9,7 @@ on:
       - '**.yaml'
       - '**.yml'
       - 'scripts/**'
+      - 'images/**'
 
 permissions:
   contents: write
