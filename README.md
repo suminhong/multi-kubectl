@@ -4,6 +4,12 @@
 
 `mk` is a CLI tool that wraps `kubectl` to execute commands across multiple Kubernetes contexts simultaneously.
 
+## Prerequisites
+- `kubectl` must be installed and configured.
+```bash
+brew install kubectl
+```
+
 ## Usage
 
 ```bash
