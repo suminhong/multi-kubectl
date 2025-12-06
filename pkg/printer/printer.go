@@ -3,6 +3,7 @@ package printer
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 	"text/tabwriter"
 
@@ -32,6 +33,11 @@ func PrintStream(res executor.Result) {
 // PrintTable aggregates results and prints them in a table format with a CONTEXT column.
 // Used for 'get' commands.
 func PrintTable(results []executor.Result) {
+	// Sort results by Context name for consistent output
+	sort.Slice(results, func(i, j int) bool {
+		return results[i].Context < results[j].Context
+	})
+
 	var validResults []executor.Result
 	var header string
 	hasResources := false

@@ -6,6 +6,9 @@ on:
       - main
     paths-ignore:
       - '**.md'
+      - '**.yaml'
+      - '**.yml'
+      - 'scripts/**'
 
 permissions:
   contents: write
