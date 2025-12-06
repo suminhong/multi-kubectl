@@ -19,11 +19,6 @@ You can install `mk` using your custom tap:
 brew install suminhong/tap/mk
 ```
 
-### From Source
-```bash
-git clone https://github.com/suminhong/multi-kubectl.git
-```
-
 ## Usage
 
 ```bash

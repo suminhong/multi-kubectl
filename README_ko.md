@@ -19,14 +19,6 @@ brew install kubectl
 brew install suminhong/tap/mk
 ```
 
-### 소스코드에서 빌드 (From Source)
-```bash
-git clone https://github.com/suminhong/multi-kubectl.git
-cd multi-kubectl
-make build
-sudo make install
-```
-
 ## 사용법 (Usage)
 
 ```bash
