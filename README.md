@@ -2,7 +2,7 @@
 
 [English](README.md) | [한국어](README_ko.md)
 
-`mk` is a CLI tool that wraps `kubectl` to execute commands across multiple Kubernetes contexts simultaneously.
+`mk` is a CLI tool that executes `kubectl` commands across multiple Kubernetes contexts and aggregates the results.
 
 ## Prerequisites
 - `kubectl` must be installed and configured.
