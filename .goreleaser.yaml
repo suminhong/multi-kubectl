@@ -1,0 +1,50 @@
+version: 2
+
+project_name: mk
+
+builds:
+  - binary: mk
+    main: ./main.go
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- .Os }}_
+      {{- .Arch }}
+
+brews:
+  - repository:
+      owner: suminhong
+      name: homebrew-tap
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
+    
+    name: mk
+    homepage: "https://github.com/suminhong/multi-kubectl"
+    description: "Multi-Kubectl: Run kubectl commands on multiple contexts"
+    license: "MIT"
+    
+    # This will create/update the formula in the tap repository
+    directory: Formula
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
