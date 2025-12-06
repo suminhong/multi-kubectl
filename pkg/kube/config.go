@@ -24,7 +24,15 @@ func GetKubeconfigPath() string {
 
 // ListContexts returns a list of all context names from the kubeconfig.
 func ListContexts(kubeconfigPath string) ([]string, error) {
-	config, err := clientcmd.LoadFromFile(kubeconfigPath)
+	// Split the path by the OS-specific path list separator (colon on Linux/Mac, semicolon on Windows)
+	paths := filepath.SplitList(kubeconfigPath)
+
+	// Use ClientConfigLoadingRules to load and merge multiple kubeconfig files
+	loadingRules := &clientcmd.ClientConfigLoadingRules{
+		Precedence: paths,
+	}
+	
+	config, err := loadingRules.Load()
 	if err != nil {
 		return nil, fmt.Errorf("failed to load kubeconfig: %w", err)
 	}
