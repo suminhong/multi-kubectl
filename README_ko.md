@@ -10,6 +10,23 @@
 brew install kubectl
 ```
 
+## 설치 (Installation)
+
+### Homebrew
+커스텀 탭을 사용하여 `mk`를 설치할 수 있습니다:
+
+```bash
+brew install suminhong/tap/mk
+```
+
+### 소스코드에서 빌드 (From Source)
+```bash
+git clone https://github.com/suminhong/multi-kubectl.git
+cd multi-kubectl
+make build
+sudo make install
+```
+
 ## 사용법 (Usage)
 
 ```bash
@@ -34,23 +51,6 @@ mk get pods --context prod,stage
 ```
 
 ![example](images/example.png)
-
-## 설치 (Installation)
-
-### Homebrew
-커스텀 탭을 사용하여 `mk`를 설치할 수 있습니다:
-
-```bash
-brew install suminhong/tap/mk
-```
-
-### 소스코드에서 빌드 (From Source)
-```bash
-git clone https://github.com/suminhong/multi-kubectl.git
-cd multi-kubectl
-make build
-sudo make install
-```
 
 ## 배포 프로세스 (Release Process)
 

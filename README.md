@@ -10,6 +10,20 @@
 brew install kubectl
 ```
 
+## Installation
+
+### Homebrew
+You can install `mk` using your custom tap:
+
+```bash
+brew install suminhong/tap/mk
+```
+
+### From Source
+```bash
+git clone https://github.com/suminhong/multi-kubectl.git
+```
+
 ## Usage
 
 ```bash
@@ -34,23 +48,6 @@ mk get pods --context prod,stage
 ```
 
 ![example](images/example.png)
-
-## Installation
-
-### Homebrew
-You can install `mk` using your custom tap:
-
-```bash
-brew install suminhong/tap/mk
-```
-
-### From Source
-```bash
-git clone https://github.com/suminhong/multi-kubectl.git
-cd multi-kubectl
-make build
-sudo make install
-```
 
 ## Release Process
 
