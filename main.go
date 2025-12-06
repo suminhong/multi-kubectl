@@ -7,6 +7,7 @@ import (
 
 	"github.com/suminhong/multi-kubectl/pkg/executor"
 	"github.com/suminhong/multi-kubectl/pkg/kube"
+	"github.com/suminhong/multi-kubectl/pkg/printer"
 )
 
 func main() {
@@ -36,11 +37,23 @@ func main() {
 	fmt.Printf("Running command on %d contexts: %s\n", len(targetContexts), strings.Join(targetContexts, ", "))
 
 	// 4. Execute concurrently
-	results := executor.Execute(targetContexts, kubectlArgs)
+	resultsChan := executor.Execute(targetContexts, kubectlArgs)
 
-	// 5. Print results
-	for res := range results {
-		printResult(res)
+	// Determine if we should use table output (only for 'get' commands)
+	isGetCommand := len(kubectlArgs) > 0 && kubectlArgs[0] == "get"
+
+	if isGetCommand {
+		// Collect all results for table formatting
+		var allResults []executor.Result
+		for res := range resultsChan {
+			allResults = append(allResults, res)
+		}
+		printer.PrintTable(allResults)
+	} else {
+		// Stream results for other commands
+		for res := range resultsChan {
+			printer.PrintStream(res)
+		}
 	}
 }
 
@@ -70,23 +83,4 @@ func printHelp() {
 	fmt.Println("  mk get pods -n devops               # Run on all contexts")
 	fmt.Println("  mk get pods --context prod          # Run on contexts containing 'prod'")
 	fmt.Println("  mk get pods --context prod,stage    # Run on contexts containing 'prod' or 'stage'")
-}
-
-func printResult(res executor.Result) {
-	header := fmt.Sprintf("[%s]", res.Context)
-	if res.Error != nil {
-		fmt.Printf("%s Error: %v\n", header, res.Error)
-		if res.Output != "" {
-			fmt.Println(res.Output)
-		}
-		return
-	}
-
-	// Prefix each line of output
-	lines := strings.Split(strings.TrimSpace(res.Output), "\n")
-	for _, line := range lines {
-		if line != "" {
-			fmt.Printf("%s %s\n", header, line)
-		}
-	}
 }
