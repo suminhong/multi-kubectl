@@ -2,6 +2,8 @@
 
 [English](README.md) | [한국어](README_ko.md)
 
+![GitHub all releases](https://img.shields.io/github/downloads/suminhong/multi-kubectl/total)
+
 `mk`는 여러 Kubernetes 컨텍스트에서 `kubectl` 명령어를 실행하고 결과를 취합하여 보여주는 CLI 도구입니다.
 
 ## 사전 요구사항 (Prerequisites)
