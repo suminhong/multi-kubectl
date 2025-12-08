@@ -40,7 +40,8 @@ func main() {
 	resultsChan := executor.Execute(targetContexts, kubectlArgs)
 
 	// Determine if we should use table output (only for 'get' commands)
-	isGetCommand := len(kubectlArgs) > 0 && kubectlArgs[0] == "get"
+	command := getCommand(kubectlArgs)
+	isGetCommand := command == "get"
 
 	if isGetCommand {
 		// Collect all results for table formatting
@@ -55,6 +56,15 @@ func main() {
 			printer.PrintStream(res)
 		}
 	}
+}
+
+func getCommand(args []string) string {
+	for _, arg := range args {
+		if !strings.HasPrefix(arg, "-") {
+			return arg
+		}
+	}
+	return ""
 }
 
 func parseArgs(args []string) (string, []string) {
