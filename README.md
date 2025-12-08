@@ -24,7 +24,7 @@ brew install suminhong/tap/mk
 ## Usage
 
 ```bash
-mk [kubectl-args] [--context <filter>]
+mk [kubectl-args] [--context <filter>|-g <group>]
 ```
 
 ### Examples

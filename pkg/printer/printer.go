@@ -32,7 +32,7 @@ func PrintStream(res executor.Result) {
 
 // PrintTable aggregates results and prints them in a table format with a CONTEXT column.
 // Used for 'get' commands.
-func PrintTable(results []executor.Result) {
+func PrintTable(results []executor.Result, noHeaders bool) {
 	// Sort results by Context name for consistent output
 	sort.Slice(results, func(i, j int) bool {
 		return results[i].Context < results[j].Context
@@ -75,8 +75,10 @@ func PrintTable(results []executor.Result) {
 	// Initialize tabwriter
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 3, ' ', 0)
 	
-	// Print Header
-	fmt.Fprintf(w, "CONTEXT\t%s\n", header)
+	// Print Header if not disabled
+	if !noHeaders {
+		fmt.Fprintf(w, "CONTEXT\t%s\n", header)
+	}
 
 	// Print Rows
 	for _, res := range validResults {

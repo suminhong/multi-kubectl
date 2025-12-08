@@ -57,17 +57,25 @@ func main() {
 	// 4. Execute concurrently
 	resultsChan := executor.Execute(targetContexts, kubectlArgs)
 
-	// Determine if we should use table output (only for 'get' commands)
-	command := getCommand(kubectlArgs)
-	isGetCommand := command == "get"
+	// Determine if we should use table output (only for 'get', 'top', etc.)
+	useTableOutput := isTableViewCommand(kubectlArgs)
 
-	if isGetCommand {
+	if useTableOutput {
+		// Check for --no-headers flag
+		noHeaders := false
+		for _, arg := range kubectlArgs {
+			if arg == "--no-headers" {
+				noHeaders = true
+				break
+			}
+		}
+
 		// Collect all results for table formatting
 		var allResults []executor.Result
 		for res := range resultsChan {
 			allResults = append(allResults, res)
 		}
-		printer.PrintTable(allResults)
+		printer.PrintTable(allResults, noHeaders)
 	} else {
 		// Stream results for other commands
 		for res := range resultsChan {
@@ -76,13 +84,22 @@ func main() {
 	}
 }
 
-func getCommand(args []string) string {
+func isTableViewCommand(args []string) bool {
+	// Commands that typically output a table and should be aggregated.
+	tableCommands := map[string]bool{
+		"get":           true,
+		"top":           true,
+		"events":        true,
+		"api-resources": true,
+	}
+
 	for _, arg := range args {
-		if !strings.HasPrefix(arg, "-") {
-			return arg
+		// If the argument matches a known table command, return true.
+		if tableCommands[arg] {
+			return true
 		}
 	}
-	return ""
+	return false
 }
 
 func parseArgs(args []string) (string, string, []string) {

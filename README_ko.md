@@ -24,7 +24,7 @@ brew install suminhong/tap/mk
 ## 사용법 (Usage)
 
 ```bash
-mk [kubectl-args] [--context <filter>]
+mk [kubectl-args] [--context <filter>|-g <group>]
 ```
 
 ### 예시 (Examples)
