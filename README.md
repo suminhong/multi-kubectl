@@ -44,6 +44,30 @@ Run on contexts containing "prod" OR "stage":
 mk get pods --context prod,stage
 ```
 
+### Context Groups
+You can define groups of contexts in `~/.kube/mk_config`:
+
+```yaml
+- name: dev
+  contexts: dev-cluster, alpha-cluster
+- name: aws
+  contexts: dev-eks, prod-eks
+```
+
+Run on a group:
+
+```bash
+mk get pods -g dev
+```
+
+Run on multiple groups:
+```bash
+mk get pods -g dev,aws
+```
+
+> [!NOTE]
+> `--context` and `-g` cannot be used together. If both are specified, `-g` takes precedence.
+
 ![example](images/example.png)
 
 ## Release Process

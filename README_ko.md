@@ -44,6 +44,30 @@ mk get pods --context prod
 mk get pods --context prod,stage
 ```
 
+### 컨텍스트 그룹 (Context Groups)
+`~/.kube/mk_config` 파일에 컨텍스트 그룹을 정의할 수 있습니다:
+
+```yaml
+- name: dev
+  contexts: dev-cluster, alpha-cluster
+- name: aws
+  contexts: dev-eks, prod-eks
+```
+
+그룹으로 실행:
+
+```bash
+mk get pods -g dev
+```
+
+여러 그룹으로 실행:
+```bash
+mk get pods -g dev,aws
+```
+
+> [!NOTE]
+> `--context`와 `-g` 옵션은 함께 사용할 수 없습니다. 두 옵션이 모두 지정된 경우 `-g` 옵션이 우선 적용됩니다.
+
 ![example](images/example.png)
 
 ## 배포 프로세스 (Release Process)
